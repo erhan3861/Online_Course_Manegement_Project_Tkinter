@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from courses import Courses
 from stats import UserStatsApp
 from register import StudentRegistrationApp
+from atama import Atama
 import client
 
 # Ana pencereyi oluştur
@@ -28,6 +29,9 @@ def make_widgets(root):
 
     register_image = Image.open("images/register.jpg").resize((150, 150))
     register_photo = ImageTk.PhotoImage(register_image)
+
+    atama_image = Image.open("images/atama.jpg").resize((150, 150))
+    atama_photo = ImageTk.PhotoImage(atama_image)
 
     # Başlık etiketi
     title_label = tk.Label(root, text="Online Kurs Yönetim Sistemi", font=("Arial", 24))
@@ -70,6 +74,10 @@ def make_widgets(root):
     register_button.grid(row=3, column=2, padx=10, pady=10)
     register_button.image = register_photo
 
+    atama_button = tk.Button(root, image=atama_photo, command=lambda:atama_click(root))
+    atama_button.grid(row=3, column=1, padx=10, pady=10)
+    atama_button.image = atama_photo
+
 # chat fonksiyonu
 def chat_click():
     client.get_chat_window()
@@ -104,6 +112,17 @@ def register_click(root):
     back_btn.pack(pady=10)
 
     student_register = StudentRegistrationApp(root) # kendi projenize göre değiştiriniz.
+
+def atama_click(root):
+    for w in root.grid_slaves(): # anasayfadaki grid paketini kullanan widgetları gez
+        w.destroy() # widgetları yok etmek
+
+    back_btn = tk.Button(root, text = "Back", command = lambda : back(root))
+    back_btn.pack(padx=10, pady=10)
+
+    # Uygulamayı başlat
+    atama_app = Atama()
+    atama_app.baslat(root) # kendi projenize göre değiştiriniz.
 
 def back(root):
     for w in root.grid_slaves():

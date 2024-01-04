@@ -5,7 +5,7 @@ import pandas as pd
 class Courses():
     def __init__(self, root):
         # Veri setini yükle
-        self.data = pd.read_csv('coursera_dataset.csv')
+        self.data = pd.read_csv('dataset.csv')
 
         # tkinter penceresini oluştur
         self.root = root
